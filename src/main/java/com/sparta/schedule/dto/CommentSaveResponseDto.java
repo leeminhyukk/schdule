@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+// 댓글 등록(저장) 응답
 @Getter
 @AllArgsConstructor
 public class CommentSaveResponseDto {

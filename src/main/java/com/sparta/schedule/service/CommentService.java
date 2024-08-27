@@ -1,5 +1,7 @@
 package com.sparta.schedule.service;
 
+import com.sparta.schedule.dto.CommentDetailRequestDto;
+import com.sparta.schedule.dto.CommentDetailResponseDto;
 import com.sparta.schedule.dto.CommentsaveRequestDto;
 import com.sparta.schedule.dto.CommentSaveResponseDto;
 import com.sparta.schedule.entity.Comment;
@@ -29,7 +31,15 @@ public class CommentService {
         Comment savedComment = commentRepository.save(comment);
 
         // 저장된 값을 객체로 지정하고, 그 객체의 정보를 Dto 에 담아서 반환.
-        return new CommentSaveResponseDto(savedComment.getContents(),savedComment.getUserName(),savedComment.getCreateAt());
+        return new CommentSaveResponseDto(savedComment.getContents(), savedComment.getUserName(), savedComment.getCreateAt());
 
+    }
+
+    //단건 조회
+    public CommentDetailResponseDto getComment(Long scheduleId, Long commentsId) {
+
+        // 조회하고 싶은 메모 있는지 확인.
+        Comment comment = commentRepository.findById(commentsId).orElseThrow(() -> new NullPointerException("해당 메모는 존재하지 않습니다."));
+        return new CommentDetailResponseDto(comment.getContents(),comment.getUserName(),comment.getCreateAt(),comment.getModifiedAt());
     }
 }

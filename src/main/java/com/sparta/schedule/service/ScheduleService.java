@@ -34,7 +34,7 @@ public class ScheduleService {
                 saveSchedule.getCreateAt());
     }
 
-    //단일 조회
+    //단건 조회
     public ScheduleDetailResponseDto getSchedule(Long scheduleId) {
         // 레퍼지토리 객체를 통해 등록된 Id 조회 및 없으면 예외처리
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new NullPointerException("등록된 스케쥴이 없습니다."));

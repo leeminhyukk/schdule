@@ -2,9 +2,10 @@ package com.sparta.schedule.dto;
 
 import lombok.Getter;
 
-// 댓글 등록(저장) 요청
+//댓글 단건 조회 요청
 @Getter
-public class CommentsaveRequestDto {
+public class CommentDetailRequestDto {
     private String contents;
     private String userName;
+
 }
