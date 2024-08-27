@@ -1,4 +1,4 @@
-package entity;
+package com.sparta.schedule.time;
 
 import jakarta.persistence.*;
 import lombok.Getter;
