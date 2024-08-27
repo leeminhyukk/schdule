@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class CommentController {
@@ -24,6 +26,14 @@ public class CommentController {
     @GetMapping("/schedules/{scheduleId}/comments/{commentsId}")
     public ResponseEntity<CommentDetailResponseDto> getComment(@PathVariable Long scheduleId, @PathVariable Long commentsId){
         return ResponseEntity.ok(commentService.getComment(scheduleId,commentsId));
+    }
+
+    //댓글 전체 조회
+    //게시물 Id 별 전체 조회.
+    //전체에서 조회하는거라서 List
+    @GetMapping("/schedules/{scheduleId}/comments")
+    public ResponseEntity<List<CommentSimpleResponseDto>> getComments(@PathVariable Long scheduleId){
+        return ResponseEntity.ok(commentService.getComments(scheduleId));
     }
 
 }
