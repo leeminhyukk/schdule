@@ -3,6 +3,7 @@ package com.sparta.schedule.entity;
 import com.sparta.schedule.dto.CommentsaveRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Table(name="comments")
 @Entity
 @Getter
+@NoArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +24,10 @@ public class Comment {
     private String userName;
 
     // 생성자 Dto 의 값을 가져와서 생성. service 에서 적용합니다.
-    public Comment(CommentsaveRequestDto commentsaveRequestDto){
-        this.contents = commentsaveRequestDto.getContents();
+    public Comment(String contents, String userName){
+        this.contents = contents;
         this.createAt = LocalDateTime.now();
-        this.userName = commentsaveRequestDto.getUserName();
+        this.userName = userName;
     }
 
 
