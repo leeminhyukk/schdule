@@ -1,16 +1,15 @@
 package com.sparta.schedule.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 // 엔티티 어노테이션, 가져다 써야하니 Getter
-//@Table(name = "schedule")
+@Table(name = "schedule")
 @Entity
 @Getter
 @NoArgsConstructor
@@ -25,6 +24,14 @@ public class Schedule {
     // 로컬에서 가져오는 시간. 생성,수정된 시간
     private LocalDateTime createAt;
     private LocalDateTime modifiedAt;
+
+    // 하나의 일정에 여러개의 댓글이 달릴 수 있으니 리스트 생성
+    // 리스트는 Only Entity 데이터 베이스에 리스트 방식으로 적용되는건 아니다
+    // mappedBy 안에 schedule 은 Comment 필드에 있는 값이다.
+    @OneToMany
+    @JoinColumn(name = "schedule_id") // comment 테이블에 schedule_id 컬럼
+    private List<Comment> commentList = new ArrayList<>();
+
 
     //생성자 필수로 입력하는값 작성자(userName),제목(title),내용(contents)
     public Schedule(String userName, String title, String contents) {
@@ -44,4 +51,7 @@ public class Schedule {
     }
 
 
+    public void addComment(Comment comment) {
+        this.commentList.add(comment);
+    }
 }
