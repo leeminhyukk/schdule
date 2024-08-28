@@ -23,6 +23,7 @@ public class CommentController {
     //댓글 단건 조회
     // ScheduleId 를생략하고 싶었으나,
     // 그냥 몇번째 댓글이 아닌 각 게시물의 몇 번째 댓글인지 확인하기 위해 다시 추가했습니다.
+    // Sql 제대로 공부할 것!!
     @GetMapping("/schedules/{scheduleId}/comments/{commentsId}")
     public ResponseEntity<CommentDetailResponseDto> getComment(@PathVariable Long scheduleId, @PathVariable Long commentsId){
         return ResponseEntity.ok(commentService.getComment(scheduleId,commentsId));
