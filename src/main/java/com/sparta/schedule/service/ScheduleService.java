@@ -4,9 +4,18 @@ import com.sparta.schedule.dto.*;
 import com.sparta.schedule.entity.Schedule;
 import com.sparta.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.ResponseUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 // 서비스
@@ -31,7 +40,9 @@ public class ScheduleService {
                 saveSchedule.getUserName(),
                 saveSchedule.getTitle(),
                 saveSchedule.getContents(),
-                saveSchedule.getCreateAt());
+                saveSchedule.getCreateAt(),
+                saveSchedule.getModifiedAt());
+
     }
 
     //단건 조회
@@ -61,5 +72,14 @@ public class ScheduleService {
                 schedule.getCreateAt(),
                 schedule.getModifiedAt());
 
+    }
+
+    // 페이징 전체조회
+    //map. 담다.
+    // ScheduleSimpleResponseDto::new 생성자
+    public List<ScheduleSimpleResponseDto> getSchedules(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("modifiedAt").descending());
+        Page<ScheduleSimpleResponseDto> schedules = scheduleRepository.findAll(pageable).map(ScheduleSimpleResponseDto::new);
+        return schedules.getContent();
     }
 }

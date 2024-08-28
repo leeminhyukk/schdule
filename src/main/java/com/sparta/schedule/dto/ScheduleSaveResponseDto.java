@@ -14,6 +14,7 @@ public class ScheduleSaveResponseDto {
     private final String title;
     private final String contents;
     private final LocalDateTime createAt;
+    private final LocalDateTime modifiedAt;
 
 
 

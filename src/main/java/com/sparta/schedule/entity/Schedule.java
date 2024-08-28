@@ -16,7 +16,7 @@ import java.util.List;
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long scheduleId;
+    private Long Id;
 
     private String title;
     private String userName;
@@ -28,8 +28,9 @@ public class Schedule {
     // 하나의 일정에 여러개의 댓글이 달릴 수 있으니 리스트 생성
     // 리스트는 Only Entity 데이터 베이스에 리스트 방식으로 적용되는건 아니다
     // mappedBy 안에 schedule 은 Comment 필드에 있는 값이다.
-    @OneToMany
-    @JoinColumn(name = "schedule_id") // comment 테이블에 schedule_id 컬럼
+    // 일정을 삭제할 때, 댓글도 함께 삭제되도록 설정. cascade = CascadeType.PERSIST, orphanRemoval = true
+    @OneToMany(mappedBy = "schedule",cascade = CascadeType.PERSIST, orphanRemoval = true)
+    //@JoinColumn(name = "schedule_id") // comment 테이블에 schedule_id 컬럼
     private List<Comment> commentList = new ArrayList<>();
 
 
@@ -40,6 +41,7 @@ public class Schedule {
         this.contents = contents;
         //등록한 시간
         this.createAt = LocalDateTime.now();
+        this.modifiedAt =LocalDateTime.now();
     }
 
     // 수정 메서드
