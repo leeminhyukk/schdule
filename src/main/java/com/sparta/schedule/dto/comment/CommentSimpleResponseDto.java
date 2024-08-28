@@ -1,6 +1,5 @@
-package com.sparta.schedule.dto;
+package com.sparta.schedule.dto.comment;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

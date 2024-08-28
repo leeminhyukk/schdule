@@ -1,10 +1,8 @@
 package com.sparta.schedule.controller;
 
-import com.sparta.schedule.dto.*;
+import com.sparta.schedule.dto.schedule.*;
 import com.sparta.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

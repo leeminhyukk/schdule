@@ -33,6 +33,10 @@ public class Schedule {
     //@JoinColumn(name = "schedule_id") // comment 테이블에 schedule_id 컬럼
     private List<Comment> commentList = new ArrayList<>();
 
+    //N대M 양방향 2주차 10강
+    @OneToMany(mappedBy = "schedule")
+    private List<Member> memberList = new ArrayList<>();
+
 
     //생성자 필수로 입력하는값 작성자(userName),제목(title),내용(contents)
     public Schedule(String userName, String title, String contents) {

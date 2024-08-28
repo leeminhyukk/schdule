@@ -1,6 +1,6 @@
 package com.sparta.schedule.controller;
 
-import com.sparta.schedule.dto.*;
+import com.sparta.schedule.dto.comment.*;
 import com.sparta.schedule.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

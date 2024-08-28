@@ -1,11 +1,9 @@
 package com.sparta.schedule.entity;
 
-import com.sparta.schedule.dto.CommentsaveRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 // 댓글 하나에 일정이 여러개 일 순 없다. 따라서 댓글이 N 일정이 1 관계 복수니까 comments

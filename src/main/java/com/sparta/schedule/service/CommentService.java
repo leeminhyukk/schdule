@@ -1,6 +1,6 @@
 package com.sparta.schedule.service;
 
-import com.sparta.schedule.dto.*;
+import com.sparta.schedule.dto.comment.*;
 import com.sparta.schedule.entity.Comment;
 import com.sparta.schedule.entity.Schedule;
 import com.sparta.schedule.repository.CommentRepository;
