@@ -37,4 +37,10 @@ public class Comment {
     private Schedule schedule;
 
 
+    //수정 시간을 메서드 사용시 입력합니다.
+    public void update(String contents, String userName) {
+        this.contents = contents;
+        this.userName = userName;
+        this.modifiedAt = LocalDateTime.now();
+    }
 }

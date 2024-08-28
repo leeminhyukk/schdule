@@ -32,28 +32,25 @@ public class CommentService {
 
 
         // 저장된 값을 객체로 지정하고, 그 객체의 정보를 Dto 에 담아서 반환.
-        return new CommentSaveResponseDto(savedComment.getContents(), savedComment.getUserName(), savedComment.getCreateAt());
+        return new CommentSaveResponseDto(savedComment.getContents(), savedComment.getUserName(), savedComment.getCreateAt(),savedComment.getId());
 
     }
 
     //단건 조회
     public CommentDetailResponseDto getComment(Long scheduleId, Long commentsId) {
-        //일정이 있는지 확인.
+        //일정, 댓글이 있는지 각 Id 로 확인
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new NullPointerException("일정이 존재하지 않습니다."));
-        //입력받은 Scheduled(일정) 에 입력된 댓글을 리스트로 만들어서
-        //댓글 리스트에 있는 값 중에서 입력받은 CommentsId 랑 일치하는걸 찾습니다.
-        Comment findcomment = new Comment();
+        Comment findcomment = commentRepository.findById(commentsId).orElseThrow(() -> new NullPointerException("메모가 존재하지 않습니다."));
+        //일정에 입력된 댓글인지 확인
         List<Comment> comments = schedule.getCommentList();
         for (Comment comment : comments){
             if(comment.getId().equals(commentsId)){
                 findcomment = comment;
-            }else throw new NullPointerException("조회된 메모가 없습니다.");
+            }
         }
-        //메모가 있는지 확인.
-        Comment comment = commentRepository.findById(commentsId).orElseThrow(() -> new NullPointerException("메모가 존재하지 않습니다."));
-
+        // 시간이 된다면 돌아와서 예외처리 추가하겠습니다. 해당 일정에 등록된 댓글이 아닐경우!
         //comment 에 scheduleId 를 담아야합니다.
-        return new CommentDetailResponseDto(findcomment.getContents(),findcomment.getUserName(),findcomment.getCreateAt(),findcomment.getModifiedAt());
+        return new CommentDetailResponseDto(findcomment.getContents(),findcomment.getUserName(),findcomment.getCreateAt(),findcomment.getModifiedAt(),findcomment.getId());
     }
 
     //전체 조회
@@ -69,10 +66,47 @@ public class CommentService {
         List<Comment> comments = schedule.getCommentList();
         List<CommentSimpleResponseDto> dtoList = new ArrayList<>();
         for (Comment comment : comments){
-            CommentSimpleResponseDto dto = new CommentSimpleResponseDto(comment.getContents(),comment.getUserName(),comment.getCreateAt(),comment.getModifiedAt());
+            CommentSimpleResponseDto dto = new CommentSimpleResponseDto(comment.getContents(),comment.getUserName(),comment.getCreateAt(),comment.getModifiedAt(),comment.getId());
             dtoList.add(dto);
         }
         return dtoList;
 
+    }
+
+    @Transactional
+    // 수정
+    public CommentUpdateResponsDto updateComment(Long scheduleId, Long commentsId, CommentUpdateRequestDto commentUpdateRequestDto) {
+        //일정,댓글 확인 단건 조회 그대로 사용.
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new NullPointerException("일정이 존재하지 않습니다."));
+        Comment findcomment = commentRepository.findById(commentsId).orElseThrow(() -> new NullPointerException("메모가 존재하지 않습니다."));
+        //일정에 입력된 댓글인지 확인
+        List<Comment> comments = schedule.getCommentList();
+        for (Comment comment : comments){
+            if(comment.getId().equals(commentsId)){
+                findcomment = comment;
+            }
+        }
+
+        //엔티티에 메서드를 만들고 사용해서 수정.
+        findcomment.update(commentUpdateRequestDto.getContents(),commentUpdateRequestDto.getUserName());
+        // 수정된 객체의 정보를 Dto 에 담아서 반환
+        return new CommentUpdateResponsDto(findcomment.getContents(),findcomment.getUserName(),findcomment.getCreateAt(),findcomment.getModifiedAt());
+    }
+
+    //댓글 삭제
+    @Transactional
+    public void deleteComment(Long scheduleId, Long commentsId) {
+        //일정,댓글 확인 단건 조회 그대로 사용.
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new NullPointerException("일정이 존재하지 않습니다."));
+        Comment findcomment = commentRepository.findById(commentsId).orElseThrow(() -> new NullPointerException("메모가 존재하지 않습니다."));
+        //일정에 입력된 댓글인지 확인
+        List<Comment> comments = schedule.getCommentList();
+        for (Comment comment : comments){
+            if(comment.getId().equals(commentsId)){
+                findcomment = comment;
+            }
+        }
+        // 만들어져있는 메서드 사용해서 삭제
+        commentRepository.delete(findcomment);
     }
 }

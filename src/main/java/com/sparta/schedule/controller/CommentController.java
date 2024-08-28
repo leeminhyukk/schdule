@@ -16,7 +16,9 @@ public class CommentController {
 
     //댓글 등록(저장)
     @PostMapping("/schedules/{scheduleId}/comments")
-    public ResponseEntity<CommentSaveResponseDto> saveComment(@PathVariable Long scheduleId, @RequestBody CommentsaveRequestDto commentsaveRequestDto){
+    public ResponseEntity<CommentSaveResponseDto> saveComment(
+            @PathVariable Long scheduleId,
+            @RequestBody CommentsaveRequestDto commentsaveRequestDto){
         return ResponseEntity.ok(commentService.saveComment(scheduleId, commentsaveRequestDto));
     }
 
@@ -35,6 +37,21 @@ public class CommentController {
     @GetMapping("/schedules/{scheduleId}/comments")
     public ResponseEntity<List<CommentSimpleResponseDto>> getComments(@PathVariable Long scheduleId){
         return ResponseEntity.ok(commentService.getComments(scheduleId));
+    }
+
+    //댓글 수정
+    @PutMapping("/schedules/{scheduleId}/comments/{commentsId}")
+    public ResponseEntity<CommentUpdateResponsDto> updateComment(
+            @PathVariable Long scheduleId,
+            @PathVariable Long commentsId,
+            @RequestBody CommentUpdateRequestDto commentUpdateRequestDto){
+        return ResponseEntity.ok(commentService.updateComment(scheduleId,commentsId,commentUpdateRequestDto));
+    }
+
+    //댓글 삭제
+    @DeleteMapping("/schedules/{scheduleId}/comments/{commentsId}")
+    public void deleteComment(@PathVariable Long scheduleId, @PathVariable Long commentsId){
+        commentService.deleteComment(scheduleId,commentsId);
     }
 
 }
