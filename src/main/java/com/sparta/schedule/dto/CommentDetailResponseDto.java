@@ -15,7 +15,7 @@ public class CommentDetailResponseDto {
     private final String userName;
     private final LocalDateTime createAt;
     private final LocalDateTime modifiedAt;
-    private final Long id;
+    private final Long Id;
 
 
 

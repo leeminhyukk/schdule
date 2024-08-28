@@ -40,14 +40,18 @@ public class CommentService {
     public CommentDetailResponseDto getComment(Long scheduleId, Long commentsId) {
         //일정, 댓글이 있는지 각 Id 로 확인
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new NullPointerException("일정이 존재하지 않습니다."));
-        Comment findcomment = commentRepository.findById(commentsId).orElseThrow(() -> new NullPointerException("메모가 존재하지 않습니다."));
-        //일정에 입력된 댓글인지 확인
+        Comment findcomment = null;
+        //일정에 일정에 입력된 댓글인지 확인
         List<Comment> comments = schedule.getCommentList();
         for (Comment comment : comments){
             if(comment.getId().equals(commentsId)){
                 findcomment = comment;
             }
         }
+        if(findcomment == null){
+            throw new NullPointerException("메모가 존재하지 않습니다.");
+        }
+//        commentRepository.findById(findcomment.getId()).orElseThrow(() -> new NullPointerException("메모가 존재하지 않습니다."));
         // 시간이 된다면 돌아와서 예외처리 추가하겠습니다. 해당 일정에 등록된 댓글이 아닐경우!
         //comment 에 scheduleId 를 담아야합니다.
         return new CommentDetailResponseDto(findcomment.getContents(),findcomment.getUserName(),findcomment.getCreateAt(),findcomment.getModifiedAt(),findcomment.getId());
