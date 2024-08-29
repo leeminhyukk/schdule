@@ -10,8 +10,10 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ScheduleSimpleResponseDto {
     private final Long id;
+    private final String title;
     private final String userName;
     private final String contents;
+    private final int commentCount;
     private final LocalDateTime createAt;
     private final LocalDateTime modifiedAt;
 
@@ -22,5 +24,6 @@ public class ScheduleSimpleResponseDto {
         this.contents = schedule.getContents();
         this.createAt = schedule.getCreateAt();
         this.modifiedAt = schedule.getModifiedAt();
+        this.t
     }
 }

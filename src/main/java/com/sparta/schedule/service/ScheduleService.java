@@ -71,12 +71,21 @@ public class ScheduleService {
 
     }
 
-    // 페이징 전체조회
-    //map. 담다.
-    // ScheduleSimpleResponseDto::new 생성자
+//     페이징 전체조회
+//    map. 담다.
+//     ScheduleSimpleResponseDto::new 생성자
     public List<ScheduleSimpleResponseDto> getSchedules(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("modifiedAt").descending());
         Page<ScheduleSimpleResponseDto> schedules = scheduleRepository.findAll(pageable).map(ScheduleSimpleResponseDto::new);
         return schedules.getContent();
     }
+
+//    public Page<ScheduleSimpleResponseDto> getSchedules(int page, int size) {
+//        Pageable pageable = PageRequest.of(page,size);
+//        Page<Schedule> schedules =scheduleRepository.findAllByOrderByModifiedAtDesc(pageable);
+//        return schedules.map(schedule -> new ScheduleSimpleResponseDto(
+//                schedule.getTitle()
+//        ));
+//    }
+
 }
