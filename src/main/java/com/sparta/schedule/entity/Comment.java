@@ -3,11 +3,11 @@ package com.sparta.schedule.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 // 댓글 하나에 일정이 여러개 일 순 없다. 따라서 댓글이 N 일정이 1 관계 복수니까 comments
-@Table(name="comments")
 @Entity
 @Getter
 @NoArgsConstructor
@@ -28,10 +28,10 @@ public class Comment {
         this.userName = userName;
     }
 
-
     //양방향 처럼 설정. mappedBy 를 사용할 수 없다.
     @ManyToOne
-    @JoinColumn(name = "schedule_id", insertable = false, updatable = false)
+    @Setter
+    @JoinColumn(name = "scheduel_id")
     private Schedule schedule;
 
 

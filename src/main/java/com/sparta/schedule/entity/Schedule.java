@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // 엔티티 어노테이션, 가져다 써야하니 Getter
-@Table(name = "schedule")
+@Table
 @Entity
 @Getter
 @NoArgsConstructor
@@ -35,7 +35,7 @@ public class Schedule {
 
     //N대M 양방향 2주차 10강
     @OneToMany(mappedBy = "schedule")
-    private List<Member> memberList = new ArrayList<>();
+    private List<MemberSchedule> memberSchedule = new ArrayList<>();
 
 
     //생성자 필수로 입력하는값 작성자(userName),제목(title),내용(contents)
@@ -59,5 +59,6 @@ public class Schedule {
 
     public void addComment(Comment comment) {
         this.commentList.add(comment);
+        comment.setSchedule(this);
     }
 }
