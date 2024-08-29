@@ -31,10 +31,11 @@ public class Comment {
 
 
     // 생성자 Dto 의 값을 가져와서 생성. service 에서 적용합니다.
-    public Comment(String contents, String userName){
+    public Comment(String contents, String userName, Schedule schedule){
         this.contents = contents;
         this.createAt = LocalDateTime.now();
         this.userName = userName;
+        this.schedule = schedule;
     }
 
 

@@ -51,7 +51,10 @@ public class ScheduleService {
                 schedule.getUserName(),
                 schedule.getTitle(),
                 schedule.getContents(),
-                schedule.getCreateAt());
+                schedule.getCreateAt(),
+                schedule.getModifiedAt(),
+                scheduleId
+        );
     }
 
     //수정

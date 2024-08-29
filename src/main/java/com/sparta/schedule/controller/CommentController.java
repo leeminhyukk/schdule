@@ -14,6 +14,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
+
     //댓글 등록(저장)
     @PostMapping("/schedules/{scheduleId}/comments")
     public ResponseEntity<CommentSaveResponseDto> saveComment(

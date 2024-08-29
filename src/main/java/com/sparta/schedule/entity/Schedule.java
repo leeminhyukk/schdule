@@ -19,7 +19,7 @@ public class Schedule {
     private Long Id;
 
     private String title;
-    private String userName;
+    private String userName; // 작성 유저명
     private String contents;
     // 로컬에서 가져오는 시간. 생성,수정된 시간
     private LocalDateTime createAt;

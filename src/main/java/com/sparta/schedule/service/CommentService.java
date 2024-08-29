@@ -24,7 +24,7 @@ public class CommentService {
         //댓글을 달고 싶은 일정이 있는지 확인.
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new NullPointerException("해당 스케쥴이 존재하지 않습니다."));
         // Dto 의 값으로 댓글을 만든다.
-        Comment comment = new Comment(commentsaveRequestDto.getContents(), commentsaveRequestDto.getUserName());
+        Comment comment = new Comment(commentsaveRequestDto.getContents(), commentsaveRequestDto.getUserName(),commentsaveRequestDto.getSchedule());
         // 적용된 값 저장.
         Comment savedComment = commentRepository.save(comment);
         schedule.addComment(savedComment);
@@ -70,7 +70,12 @@ public class CommentService {
         List<Comment> comments = schedule.getCommentList();
         List<CommentSimpleResponseDto> dtoList = new ArrayList<>();
         for (Comment comment : comments){
-            CommentSimpleResponseDto dto = new CommentSimpleResponseDto(comment.getContents(),comment.getUserName(),comment.getCreateAt(),comment.getModifiedAt(),comment.getId());
+            CommentSimpleResponseDto dto = new CommentSimpleResponseDto(
+                    comment.getContents(),
+                    comment.getUserName(),
+                    comment.getCreateAt(),
+                    comment.getModifiedAt(),
+                    comment.getId());
             dtoList.add(dto);
         }
         return dtoList;
